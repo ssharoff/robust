@@ -18,26 +18,26 @@ mureliable = function(x,bend=1.28) {
     return(mean(vfcliph2m))
 }
 
-outmeasures = function (v,n) { #ipms and real counts
-   lv=length(v); tobeadded=doccount-lv;
+outmeasures = function (docsize,n) { #docsize and real counts
+   lv=length(docsize); # tobeadded=doccount-lv;
 #   vf=c(v,rep(0,times=tobeadded));  # we need to make full vectors with zeros
 #   nf=c(n,rep(0,times=tobeadded));
-   docsize=1e6*n/v; #an approximation of doc sizes for c>0
+   # docsize=1e6*n/v; #an approximation of doc sizes for c>0
    #sfreal=c(s,rep((wcount-sum(s))/tobeadded,tobeadded));
 
    rawcount=sum(n) # nf
    
    alpha=lv/doccount;  #pars from Katz 1995
 
-   sigma=sd(v);
-   mu=mean(v);
-   mu2s=mu+2*sd(v);
-
+   ## sigma=sd(v);
+   ## mu=mean(v);
+   ## mu2s=mu+2*sd(v);
    ## med=median(v);
    ## mad=mad(v);
    ## m2m=med+2.24*mad;
-   hm=huberM(v)$mu;
-   s=Sn(v);
+   ipm=1e6*n/docsize;
+   hm=huberM(ipm)$mu;
+   s=Sn(ipm);
    hm2s=hm+2.24*s;
 #print(sum(v>mu2s));
 #print(sum(v>m2m));
@@ -46,12 +46,13 @@ outmeasures = function (v,n) { #ipms and real counts
 #    vfcliph2m=vf[vf<hm2m];
     ## vfclipmu2s=pmin(vf,mu2s); #Winsorising by \mu+2\sigma, 
     ## vfclipm2m=pmin(vf,m2m); #Winsorising by median+2.24MAD, 
-    vcliph2s=pmin(v,hm2s); #Winsorising by huber+2.24S_n
+    vcliph2s=pmin(ipm,hm2s); #Winsorising by huber+2.24S_n
 
     ## ln1=length(n[n==1]);
     ## gamma=1-(ln1/lv);
     ## b=(sum(n)-ln1)/(lv-ln1);
-# returning: raw, raw*alpha, mean ipm, mean vclip, number of v>hm2s, adjusted natural frequency return(c(rawcount,rawcount*alpha,sum(v)/doccount,sum(vcliph2s)/doccount,sum(v>hm2s),sum(as.integer(vcliph2s*1e-6*docsize)))); 
+# returning: raw, raw*alpha, mean ipm, mean vclip, number of v>hm2s, adjusted natural frequency
+   return(c(rawcount,rawcount*alpha,1e-6*rawcount/doccount,sum(vcliph2s)/doccount,sum(ipm>hm2s),sum(as.integer(vcliph2s*1e-6*docsize)))); 
 }
 
 startrange=rangesize*(file-1)+1;

@@ -37,13 +37,13 @@ gastric 1 62338
 gastric 17 59681
 ```
 
-In this example, *correct* occurs once in two documents (with the length of 8309 and 20116 words). In this example the objects of counting are lemmas, we can also count word forms or POS tags.
+In this example, *correct* occurs once in two documents (with the length of 8309 and 20116 words). 
 
 A list of this kind is produced by taking a corpus in the form of one document per line and running
 
 `docfrq-list.sh`
 
-A separate script ~~ splits the document-level list into separate documents with the frequencies for each individual object of counting, such as *take* or *price*.
+A separate script ~frq-split.sh~ splits the document-level list into separate documents with the frequencies for each individual object of counting, such as *take* or *price*.
 
 `frq-split.sh`
 
