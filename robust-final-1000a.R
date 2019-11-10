@@ -33,9 +33,9 @@ outmeasures = function (v,n) { #ipms and real counts
    mu=mean(v);
    mu2s=mu+2*sd(v);
 
-   med=median(v);
-   mad=mad(v);
-   m2m=med+2.24*mad;
+   ## med=median(v);
+   ## mad=mad(v);
+   ## m2m=med+2.24*mad;
    hm=huberM(v)$mu;
    s=Sn(v);
    hm2s=hm+2.24*s;
@@ -51,7 +51,7 @@ outmeasures = function (v,n) { #ipms and real counts
     ## ln1=length(n[n==1]);
     ## gamma=1-(ln1/lv);
     ## b=(sum(n)-ln1)/(lv-ln1);
-   return(c(rawcount,rawcount*alpha,sum(v)/doccount,sum(vcliph2s)/doccount,sum(v>hm2s),sum(as.integer(vcliph2s*1e-6*docsize)))); 
+# returning: raw, raw*alpha, mean ipm, mean vclip, number of v>hm2s, adjusted natural frequency return(c(rawcount,rawcount*alpha,sum(v)/doccount,sum(vcliph2s)/doccount,sum(v>hm2s),sum(as.integer(vcliph2s*1e-6*docsize)))); 
 }
 
 startrange=rangesize*(file-1)+1;
