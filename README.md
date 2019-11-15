@@ -57,7 +57,8 @@ For each word (or another object of counting, such as lemma or n-gram), `robustp
 3. the number of documents subject to Winsorisation, and 
 4. the document frequency.
 
-The `diff` file shows the most significant changes in the frequency list before and after robust estimation <http://ucrel.lancs.ac.uk/llwizard.html>:
+The `diff` file shows the most significant changes in the frequency list before and after robust estimation:
+
 | Word          | Raw   | Robust | LL-score |
 |---------------|-------|--------|----------|
 | hon           | 10709 | 378    | 2890     |
@@ -76,3 +77,5 @@ The `diff` file shows the most significant changes in the frequency list before 
 | ronni         | 538   | 8      | 193      |
 | corbett       | 1541  | 144    | 188      |
 | colonic       | 830   | 42     | 183      |
+
+For information about the log-likelihood scoree see  <http://ucrel.lancs.ac.uk/llwizard.html>
