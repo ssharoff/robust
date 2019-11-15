@@ -40,7 +40,7 @@ for line in f:
     if len(x)>2:
         if x[0] != prev and len(prev)>0:
             if len(n)>mincount:
-                print('\t'.join(robustassess(x[0],np.array(n), np.array(d))))
+                print('\t'.join(robustassess(prev,np.array(n), np.array(d))))
             n=[]
             d=[]
         prev=x[0]
@@ -51,4 +51,4 @@ for line in f:
             print('Error in line: '+line,file=sys.stderr)
 
 if len(n)>mincount:
-    print('\t'.join(robustassess(x[0],np.array(n), np.array(d))))
+    print('\t'.join(robustassess(prev,np.array(n), np.array(d))))
