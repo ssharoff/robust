@@ -39,24 +39,18 @@ gastric 17 59681
 
 In this example, *correct* occurs once in two documents (with the length of 8309 and 20116 words). 
 
-A list of this kind is produced by taking a corpus in the form of one document per line and running
+A list of this kind is produced by taking a corpus in the form of one document per line and running:
 
 `docfrq-list.sh`
 
-A separate script ~frq-split.sh~ splits the document-level list into separate documents with the frequencies for each individual object of counting, such as *take* or *price*.
+If a computer cluster with many computing nodes is available, this list can be produced for a large corpus much faster by running ~frq-split.sh~ to split the corpus into fixed-size chunks and to compute the document level frequency lists in parallel.  After that the separate frequency lists can be combined by running
 
-`frq-split.sh`
+`collect-numfiles.sh`
 
-Another script ~~ takes a portion of such documents (1000 objects) and computes the necessary robust measures:
+Finally `robustpython.py` can be used to compute the robust frequency list:
 
-`Rscript robust-1000.R 1 4054 96134547`
+`xzcat bnc-doc.num.xz | python3 robustpython.py 5 | sort -nsrk3,3 >bnc-clean.num`
 
-The parameters are: (1) the batch of the documents output by `frq-split.sh`, (2) the total number of documents in the corpus and (3) the total corpus size (in words).
+The parameter is the document level frequency threshold, i.e., the words for the frequency list need to occur in at least 5 documents in this example.
 
-For each object of counting, `robust-1000.R` outputs its (1) raw frequency, (2) alpha\*raw frequency, (3) mean frequency normalised by document length, (4) hubertM estimator of normalised frequency, (5) number of documents subject to Winsorisation, and (6) final robust frequency value counted for all documents with Winsorisation.
-
-Finally, the output files are collected by running:
-
-`collect-num.sh`
-
-The scripts are organised in this way to simplify their processing in a parallel environment, such as an HPC cluster.
+For each object of counting, `robust-1000.R` outputs (1) the raw frequency,  (2) the adjusted robust frequency value counted for all documents with Winsorisation, (3) the number of documents subject to Winsorisation, and (4) the document frequency.
