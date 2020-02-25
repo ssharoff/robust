@@ -12,17 +12,16 @@ where the frequency of *gastric* is ranked higher than *desirable* and *mucosa* 
 
 The tools listed here produce frequency lists by using document-level measures to filter out frequency bursts using methods from robust statistics. The method which this study found to be more useful is based on *huberM* and *S*<sub>*n*</sub> estimators of expected values.
 
-In short, we determine robust estimates of how many times a word **can** occur in a document of this corpus. With this value we clip (Winsorise) its frequency to our predicted robust estimate if the frequency exceeds the estimate. This helps in describing the frequency distributions from different corpora by making more reliable predictions of how common the words and their constructions are, and in inferring the significant differences in the lexicons of different text collections, e.g., detecting problems in a given corpus, how a Web crawl is different from the BNC, etc. For the rationale and the methodology, see a forthcoming chapter:
+In short, we determine robust estimates of how many times a word **is likely** to occur in a document of this corpus.  With this value we clip (Winsorise) its frequency to our predicted robust estimate if the frequency exceeds the estimate in the case of a frequency burst in this document.  This helps in describing the frequency distributions from different corpora by making more reliable predictions of how common the words and their constructions are, and in inferring the significant differences in the lexicons of different text collections, e.g., detecting problems in a given corpus, how a Web crawl is different from the BNC, etc. For the rationale and the methodology, see:
 
 ``` example
-@InCollection{sharoff2017knowthy,
-  author =   {Serge Sharoff},
-  title =    {Know thy corpus! {Exploring} frequency distributions in large corpora},
-  booktitle =    {Essays in Honor of Adam Kilgarriff},
-  publisher = {Springer},
-  year =     2017,
-  editor =   {Mona Diab and Aline Villavicencio},
-  series =   {Text, Speech and Language Technology}}
+@InProceedings{sharoff20,
+  author = 	 {Serge Sharoff},
+  title = 	 {Know thy corpus! Robust methods for digital curation of Web corpora},
+  booktitle = {Proc LREC},
+  year = 	 2020,
+  month = 	 {May},
+  address = 	 {Marseilles}}
 ```
 
 Scripts
