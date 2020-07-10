@@ -11,7 +11,7 @@ import sys
 from astropy.stats import biweight_location, biweight_scale
 import numpy as np
 
-def robustassess(w,n,d,k=2.24): #raw frequency, doc length and threshold
+def robustassess(n,d,k=2.24): #raw frequency, doc length and threshold
     v=np.divide(n,d)
 
     rawcount=np.sum(n)
@@ -25,7 +25,10 @@ def robustassess(w,n,d,k=2.24): #raw frequency, doc length and threshold
 
     adjustedcount=int(np.sum(vcliph2s*d))
 
-    return [w, str(rawcount),str(adjustedcount),str(docsclipped),str(len(n))]
+    return [rawcount, adjustedcount,docsclipped,len(n)]
+
+def formatout(w,nlist):
+    return '\t'.join([w] + [str(n) for n in nlist])
 
 # min doc count for words
 mincount=int(sys.argv[1]) if len(sys.argv)>1 else 5
@@ -40,7 +43,7 @@ for line in f:
     if len(x)>2:
         if x[0] != prev and len(prev)>0:
             if len(n)>mincount:
-                print('\t'.join(robustassess(prev,np.array(n), np.array(d))))
+                print(formatout(prev,robustassess(np.array(n),np.array(d))))
             n=[]
             d=[]
         prev=x[0]
@@ -51,4 +54,4 @@ for line in f:
             print('Error in line: '+line,file=sys.stderr)
 
 if len(n)>mincount:
-    print('\t'.join(robustassess(prev,np.array(n), np.array(d))))
+    print(formatout(prev,robustassess(np.array(n),np.array(d))))
