@@ -15,7 +15,7 @@ def robustassess(n,d,k=2.24): #raw frequency, doc length and threshold
     v=np.divide(n,d)
 
     rawcount=np.sum(n)
-
+    
     mu=biweight_location(v)
     s=biweight_scale(v)
     mu2s=mu+k*s
@@ -25,14 +25,20 @@ def robustassess(n,d,k=2.24): #raw frequency, doc length and threshold
 
     adjustedcount=int(np.sum(vcliph2s*d))
 
-    return [rawcount, adjustedcount,docsclipped,len(n)]
+    proportionv=n/rawcount # proportion of word frequency per document
+    proportiond=d/N        # document size proportion
+    kld=np.sum(np.multiply(proportionv,np.log2(np.divide(proportionv,proportiond))))
+
+    return [rawcount, adjustedcount,docsclipped,len(n),'%.3f' % kld]
 
 def formatout(w,nlist):
     return '\t'.join([w] + [str(n) for n in nlist])
 
+#corpus size
+N=int(sys.argv[1])
 # min doc count for words
-mincount=int(sys.argv[1]) if len(sys.argv)>1 else 5
-f=open(sys.argv[2]) if len(sys.argv)>2 else sys.stdin
+mincount=int(sys.argv[2]) if len(sys.argv)>2 else 5
+f=open(sys.argv[3]) if len(sys.argv)>3 else sys.stdin
 
 prev=''
 n=[]
