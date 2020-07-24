@@ -21,9 +21,9 @@ def robustassess(n,d,k=2.24): #raw frequency, doc length and threshold
     mu2s=mu+k*s
     vcliph2s=np.minimum(v,mu2s); #Winsorising
 
-    docsclipped=np.sum(np.greater(v, vcliph2s))
+    docsclipped=np.sum(np.greater(v, vcliph2s)) # number of docts
 
-    adjustedcount=int(np.sum(vcliph2s*d))
+    adjustedcount=int(np.sum(np.rint(vcliph2s*d))) # rounding to integer
 
     proportionv=n/rawcount # proportion of word frequency per document
     proportiond=d/N        # document size proportion
